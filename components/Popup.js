@@ -1,36 +1,36 @@
 class Popup {
-    constructor({popupSelector}) {
-        this._popupElement = document.querySelector(popupSelector);
-        this._popupCloseBtn = this._popupElement.querySelector(".popup__close");
-        this._popupOutside = document.querySelector("#add-todo-popup");
-    }
+  constructor({ popupSelector }) {
+    this._popupElement = document.querySelector(popupSelector);
+    this._popupCloseBtn = this._popupElement.querySelector(".popup__close");
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
+  }
 
-    open() {
-        this._popupElement.classList.add("popup_visible");
-        document.addEventListener("keyup", this._handleEscapeClose);
-    }
+  open() {
+    this._popupElement.classList.add("popup_visible");
+    document.addEventListener("keyup", this._handleEscapeClose);
+  }
 
-    close() {
-        this._popupElement.classList.remove("popup_visible");
-        document.removeEventListener("keyup", this._handleEscapeClose);
-    }
+  close() {
+    this._popupElement.classList.remove("popup_visible");
+    document.removeEventListener("keyup", this._handleEscapeClose);
+  }
 
-    _handleEscapeClose(evt) {
-        if (evt.key === "Escape") {
-            const openedPopup = document.querySelector(".popup_visible");
-            openedPopup.classList.remove("popup_visible");
-            document.removeEventListener("keyup", this._handleEscapeClose);
-        }
+  _handleEscapeClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
     }
+  }
 
-    setEventListeners() {
-        this._popupElement.addEventListener("mousedown", (evt) => {
-            if (evt.target === this._popupCloseBtn || 
-                evt.target === this._popupOutside) {
-                    this.close();
-                };
-        })
-    }
+  setEventListeners() {
+    this._popupElement.addEventListener("mousedown", (evt) => {
+      if (
+        evt.target === this._popupCloseBtn ||
+        evt.target === this._popupElement
+      ) {
+        this.close();
+      }
+    });
+  }
 }
 
 export default Popup;
