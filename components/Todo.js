@@ -25,7 +25,7 @@ class Todo {
       this._updateCheck(this._completed);
     });
     this._todoDeleteBtn.addEventListener("click", () => {
-      this._updateTotal(false);
+      this._updateTotal(this._completed);
       this._handleDelete();
     });
   }
